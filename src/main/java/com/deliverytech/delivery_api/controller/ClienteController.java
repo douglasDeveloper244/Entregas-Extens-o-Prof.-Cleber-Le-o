@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.deliverytech.delivery_api.dto.ClienteResponseDTO;
-import com.deliverytech.delivery_api.dto.ClienteResquetDTO;
+import com.deliverytech.delivery_api.dto.ClienteRequestDTO;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -36,7 +36,7 @@ public class ClienteController {
      * Cadastrar novo cliente
      */
     @PostMapping
-    public ResponseEntity<?> cadastrar(@Valid @RequestBody ClienteResquetDTO cliente) {
+    public ResponseEntity<?> cadastrar(@Valid @RequestBody ClienteRequestDTO cliente) {
         try {
             ClienteResponseDTO clienteSalvo = clienteService.cadastrar(cliente);
             return ResponseEntity.status(HttpStatus.CREATED).body(clienteSalvo);

@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.deliverytech.delivery_api.dto.ClienteRequestDTO;
 import com.deliverytech.delivery_api.dto.ClienteResponseDTO;
-import com.deliverytech.delivery_api.dto.ClienteResquetDTO;
 import com.deliverytech.delivery_api.entity.Cliente;
 import com.deliverytech.delivery_api.exceptions.BusinessException;
 import com.deliverytech.delivery_api.repository.ClienteRepository;
@@ -21,9 +21,7 @@ public class ClienteService {
      @Autowired
     private ClienteRepository clienteRepository;
 
-    /** Cadastrar novo cliente */
-    public ClienteResponseDTO cadastrar(ClienteResquetDTO dto) {
-        // Validar email único
+    public ClienteResponseDTO cadastrar(ClienteRequestDTO dto) {
         if (clienteRepository.existsByEmail(dto.getEmail())) {
             throw new BusinessException("Email já cadastrado: " + dto.getEmail());
         }
@@ -33,7 +31,6 @@ public class ClienteService {
         cliente.setEmail(dto.getEmail());
         cliente.setTelefone(dto.getTelefone());
         cliente.setEndereco(dto.getEndereco());
-        // Definir como ativo por padrão
         cliente.setAtivo(true);
         cliente.setDataCadastro(LocalDateTime.now());
 
