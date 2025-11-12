@@ -1,5 +1,7 @@
 # 🍕 Delivery Tech API
 
+```bash
+
 API RESTful para gerenciamento de restaurantes, pedidos, clientes e relatórios — desenvolvida com **Spring Boot 3.2.x** e **Java 21**.
 
 ---
@@ -96,7 +98,6 @@ src/
 
 ### ▶️ Execução
 
-```bash
 
 # Executar com Maven Wrapper
 ./mvnw spring-boot:run
