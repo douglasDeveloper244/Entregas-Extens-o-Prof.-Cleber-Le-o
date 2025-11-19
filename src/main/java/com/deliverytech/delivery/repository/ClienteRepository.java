@@ -1,0 +1,15 @@
+package com.deliverytech.delivery.repository;
+
+import com.deliverytech.delivery.entity.Cliente;
+import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
+import java.util.Optional;
+
+public interface ClienteRepository extends JpaRepository<Cliente, Long> {
+
+    // Roteiro 3 - 1.1 Repository do Cliente
+    Optional<Cliente> findByEmail(String email);
+    List<Cliente> findByAtivoTrue();
+    List<Cliente> findByNomeContainingIgnoreCase(String nome);
+    boolean existsByEmail(String email);
+}
