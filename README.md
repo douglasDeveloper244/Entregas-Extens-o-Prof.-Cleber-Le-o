@@ -368,37 +368,6 @@ spring.jpa.show-sql=true
 
 spring.h2.console.enabled=true
 spring.h2.console.path=/h2-console
-📊 Status dos Endpoints
-Módulo CRUD Buscas Status
-Clientes ✅ ✅ Completo
-Restaurantes ✅ ✅ Completo
-Produtos ✅ ✅ Completo
-Pedidos ✅ ✅ Completo
-🎯 Próximos Passos
-Implementar autenticação JWT
-
-Adicionar documentação Swagger/OpenAPI
-
-Criar testes unitários
-
-Configurar PostgreSQL para produção
-
-Implementar cache com Redis
-
-Adicionar upload de imagens
-
-Criar dashboard administrativo
-
-📞 Suporte
-Em caso de dúvidas ou problemas:
-
-Verifique os logs da aplicação
-
-Confirme se todos os pré-requisitos estão instalados
-
-Teste os endpoints de health check
-
-Consulte a documentação do H2 Console para verificar os dados
 
 Desenvolvido por Douglas Ribeiro
 _API Delivery System - Versão 1.0.0_
