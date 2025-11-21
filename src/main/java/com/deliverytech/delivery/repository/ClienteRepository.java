@@ -7,9 +7,11 @@ import java.util.Optional;
 
 public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 
-    // Roteiro 3 - 1.1 Repository do Cliente
     Optional<Cliente> findByEmail(String email);
+
     List<Cliente> findByAtivoTrue();
+
     List<Cliente> findByNomeContainingIgnoreCase(String nome);
+
     boolean existsByEmail(String email);
 }

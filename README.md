@@ -4,7 +4,7 @@ Sistema de delivery desenvolvido com Spring Boot e Java 21, implementando as cam
 
 ## 🚀 Tecnologias
 - **Java 21 LTS** (versão mais recente)
-- Spring Boot 3.2.x
+- Spring Boot 3.2.4
 - Spring Web
 - Spring Data JPA
 - H2 Database
@@ -15,6 +15,7 @@ Sistema de delivery desenvolvido com Spring Boot e Java 21, implementando as cam
 - Text Blocks (Java 15+)
 - Pattern Matching (Java 17+)
 - Virtual Threads (Java 21)
+- Desenvolvido com JDK 21 e Spring Boot 3.2.4
 
 ## 🏃‍♂️ Como executar
 1. **Pré-requisitos:** JDK 21 e Maven instalados.
@@ -75,5 +76,4 @@ A API está rodando em `http://localhost:8080`.
 - Banco: H2 em memória (acessível em `http://localhost:8080/h2-console`)
 
 ## 👨‍💻 Desenvolvedor
-[Seu Nome] - [Sua Turma]
-Desenvolvido com JDK 21 e Spring Boot 3.2.x
+Douglas Ribeiro - Extensão Arquitetura de sistemas API REST Full com Java Springboot.
