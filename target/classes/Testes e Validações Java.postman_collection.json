@@ -1,0 +1,376 @@
+{
+	"info": {
+		"_postman_id": "ffdd06c1-d0c8-43f6-b6a1-d9f43f7a117a",
+		"name": "Testes e Validações Java",
+		"description": "# 🚀 Get started here\n\nThis template guides you through CRUD operations (GET, POST, PUT, DELETE), variables, and tests.\n\n## 🔖 **How to use this template**\n\n#### **Step 1: Send requests**\n\nRESTful APIs allow you to perform CRUD operations using the POST, GET, PUT, and DELETE HTTP methods.\n\nThis collection contains each of these [request](https://learning.postman.com/docs/sending-requests/requests/) types. Open each request and click \"Send\" to see what happens.\n\n#### **Step 2: View responses**\n\nObserve the response tab for status code (200 OK), response time, and size.\n\n#### **Step 3: Send new Body data**\n\nUpdate or add new data in \"Body\" in the POST request. Typically, Body data is also used in PUT request.\n\n```\n{\n    \"name\": \"Add your name in the body\"\n}\n\n ```\n\n#### **Step 4: Update the variable**\n\nVariables enable you to store and reuse values in Postman. We have created a [variable](https://learning.postman.com/docs/sending-requests/variables/) called `base_url` with the sample request [https://postman-api-learner.glitch.me](https://postman-api-learner.glitch.me). Replace it with your API endpoint to customize this collection.\n\n#### **Step 5: Add tests in the \"Scripts\" tab**\n\nAdding tests to your requests can help you confirm that your API is working as expected. You can write test scripts in JavaScript and view the output in the \"Test Results\" tab.\n\n<img src=\"https://content.pstmn.io/fa30ea0a-373d-4545-a668-e7b283cca343/aW1hZ2UucG5n\" width=\"2162\" height=\"1530\">\n\n## 💪 Pro tips\n\n- Use folders to group related requests and organize the collection.\n    \n- Add more [scripts](https://learning.postman.com/docs/writing-scripts/intro-to-scripts/) to verify if the API works as expected and execute workflows.\n    \n\n## 💡Related templates\n\n[API testing basics](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9a37a28-055b-49cd-8c7e-97494a21eb54&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[API documentation](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9c28f47-1253-44af-a2f3-20dce4da1f18&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[Authorization methods](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=31a9a6ed-4cdf-4ced-984c-d12c9aec1c27&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "48076686",
+		"_collection_link": "https://admin-tecnobil-3571174.postman.co/workspace/Admin-Tecnobil's-Workspace~7286ff68-d75d-4588-8952-20b65fc5536d/collection/48076686-ffdd06c1-d0c8-43f6-b6a1-d9f43f7a117a?action=share&source=collection_link&creator=48076686"
+	},
+	"item": [
+		{
+			"name": "Clientes",
+			"item": [
+				{
+					"name": "Cadastrar Cliente",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nome\": \"Douglas Ribeiro\",\r\n  \"email\": \"Douglas.Ribeiro@email.com\",\r\n  \"telefone\": \"(31) 912344567\",\r\n  \"endereco\": \"Rua das Flores, 123 - Belo Horizonte - MG\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8081/clientes"
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar Cliente por ID",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Clientes Ativos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8081/clientes/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar Cliente por Email",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8081/clientes/email/Douglas.Ribeiro@email.com"
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar Clientes por Nome",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/clientes/buscar?nome=Douglas%20Ribeiro",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"clientes",
+								"buscar"
+							],
+							"query": [
+								{
+									"key": "nome",
+									"value": "Douglas%20Ribeiro"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar Cliente",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nome\": \"Douglas Rodrigues\",\r\n  \"email\": \"Douglas.Ribeiro@gmail.com\",\r\n  \"telefone\": \"(11) 98888-8888\",\r\n  \"endereco\": \"Rua das Flores, 123 - São Paulo, SP\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8081/clientes/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Inativar Cliente",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:8081/clientes/1"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Pedido",
+			"item": [
+				{
+					"name": "Criar Pedido",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"clienteId\": 1,\r\n  \"restauranteId\": 1,\r\n  \"valorTotal\": 45.90,\r\n  \"observacoes\": \"Sem cebola, por favor\",\r\n  \"itens\": \"1x Pizza Calabresa, 1x Coca-Cola 2L\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8081/api/pedidos"
+					},
+					"response": []
+				},
+				{
+					"name": "Consultar Pedido por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8081/api/pedidos/4"
+					},
+					"response": []
+				},
+				{
+					"name": "Consultar Pedidos por Cliente",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar Status do Pedido",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/pedidos/1/status?status=EM_PREPARO",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"pedidos",
+								"1",
+								"status"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "EM_PREPARO"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Restaurante",
+			"item": [
+				{
+					"name": "Criar Restaurante",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nome\": \"Pizzaria do João\",\r\n  \"endereco\": \"Av. Paulista, 1000 - São Paulo, SP\",\r\n  \"telefone\": \"(11) 3333-3333\",\r\n  \"horarioFuncionamento\": \"18:00-23:00\",\r\n  \"categoria\": \"Pizzaria\",\r\n  \"taxaEntrega\": 5.00,\r\n  \"avaliacao\": 4.5,\r\n  \"ativo\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8081/api/restaurantes"
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Todos os Restaurantes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8081/api/restaurantes"
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar Restaurantes por Categoria",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/restaurantes/buscar/categoria?categoria=Hamburgueria",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"restaurantes",
+								"buscar",
+								"categoria"
+							],
+							"query": [
+								{
+									"key": "categoria",
+									"value": "Hamburgueria"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar Restaurante",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:8081/api/restaurantes/4"
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar Restaurante",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nome\": \"Pizzaria do João - Unidade Centro\",\r\n  \"endereco\": \"Av. Paulista, 1000 - São Paulo, SP\",\r\n  \"telefone\": \"(11) 3333-4444\",\r\n  \"horarioFuncionamento\": \"17:00-00:00\",\r\n  \"categoria\": \"Pizzaria\",\r\n  \"taxaEntrega\": 6.00,\r\n  \"avaliacao\": 4.7,\r\n  \"ativo\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8081/api/restaurantes/1"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Produto",
+			"item": [
+				{
+					"name": "Criar Produto",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nome\": \"Pizza Calabresa\",\r\n  \"descricao\": \"Pizza de calabresa com mussarela e cebola\",\r\n  \"preco\": 39.90,\r\n  \"categoria\": \"Pizza\",\r\n  \"disponivel\": true,\r\n  \"restaurante\": {\r\n    \"id\": 1\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8081/api/produtos"
+					},
+					"response": []
+				},
+				{
+					"name": "Criar Produto para Restaurante",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8081/api/produtos/restaurante/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Todos os Produtos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8081/api/produtos"
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar Produto por Restaurante",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8081/api/produtos/restaurante/3/disponiveis"
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar Produto",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nome\": \"Pizza Calabresa Especial\",\r\n  \"descricao\": \"Pizza de calabresa com mussarela, cebola e azeitonas\",\r\n  \"preco\": 42.90,\r\n  \"categoria\": \"Pizza\",\r\n  \"disponivel\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8081/api/produtos/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar Produto",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:8081/api/produtos/1"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "id",
+			"value": "1"
+		},
+		{
+			"key": "base_url",
+			"value": "https://template.postman-echo.com"
+		}
+	]
+}
