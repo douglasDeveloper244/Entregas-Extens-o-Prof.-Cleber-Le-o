@@ -370,4 +370,5 @@ spring.h2.console.enabled=true
 spring.h2.console.path=/h2-console
 
 Desenvolvido por Douglas Ribeiro
+
 _API Delivery System - Versão 1.0.0_
