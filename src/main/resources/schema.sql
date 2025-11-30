@@ -39,6 +39,32 @@ CREATE TABLE pedidos (
     cliente_id INT,
     restaurante_id INT,
     itens VARCHAR(200),
+    endereco_entrega VARCHAR(200),
+    taxa_entrega DECIMAL(10,2),
+    data_entrega TIMESTAMP,
+    cep VARCHAR(20),
     FOREIGN KEY (cliente_id) REFERENCES clientes(id),
     FOREIGN KEY (restaurante_id) REFERENCES restaurantes(id)
+);
+
+CREATE TABLE item_pedido (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    quantidade INT,
+    preco_unitario DECIMAL(10,2),
+    subtotal DECIMAL(10,2),
+    pedido_id INT,
+    produto_id INT,
+    FOREIGN KEY (pedido_id) REFERENCES pedidos(id),
+    FOREIGN KEY (produto_id) REFERENCES produtos(id)
+);
+
+CREATE TABLE usuarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    senha VARCHAR(255) NOT NULL,
+    role VARCHAR(20) NOT NULL,
+    ativo BOOLEAN NOT NULL,
+    data_criacao TIMESTAMP NOT NULL,
+    restaurante_id INT
 );

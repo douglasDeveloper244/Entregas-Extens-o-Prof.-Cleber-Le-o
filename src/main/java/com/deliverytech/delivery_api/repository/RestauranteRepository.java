@@ -9,15 +9,16 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-
+import com.deliverytech.delivery_api.entity.Pedido;
+import com.deliverytech.delivery_api.entity.Produto;
 import com.deliverytech.delivery_api.entity.Restaurante;
 
 @Repository
-public interface RestauranteRepository extends JpaRepository <Restaurante, Long>{
+public interface RestauranteRepository extends JpaRepository<Restaurante, Long> {
     // Buscar por nome
     Optional<Restaurante> findByNome(String nome);
 
-    //buscar por nome e ativo
+    // buscar por nome e ativo
     Restaurante findByNomeAndAtivoTrue(String nome);
 
     // Buscar restaurantes ativos

@@ -3,7 +3,8 @@ package com.deliverytech.delivery_api.enums;
 public enum Role {
     ADMIN("ADMIN"),
     RESTAURANTE("RESTAURANTE"),
-    CLIENTE("CLIENTE");
+    CLIENTE("CLIENTE"),
+    ENTREGADOR("ENTREGADOR");
 
     private final String role;
 

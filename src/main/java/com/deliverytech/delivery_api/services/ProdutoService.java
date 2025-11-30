@@ -1,6 +1,5 @@
 package com.deliverytech.delivery_api.services;
 
-
 import com.deliverytech.delivery_api.dto.request.ProdutoRequestDTO;
 import com.deliverytech.delivery_api.dto.response.ProdutoResponseDTO;
 
@@ -19,7 +18,7 @@ public interface ProdutoService {
 
     ProdutoResponseDTO buscarPorNome(String nome);
 
-    List<ProdutoResponseDTO>  buscarPorRestaurante(Long restauranteId);
+    List<ProdutoResponseDTO> buscarPorRestaurante(Long restauranteId);
 
     List<ProdutoResponseDTO> buscarPorCategoria(String categoria);
 
@@ -28,4 +27,8 @@ public interface ProdutoService {
     List<ProdutoResponseDTO> buscarTodosProdutos();
 
     List<ProdutoResponseDTO> buscarPorPrecoMenorOuIgual(BigDecimal valor);
+
+    boolean isOwner(Long produtoId);
+
+    void deletar(Long id);
 }

@@ -10,7 +10,7 @@ import com.deliverytech.delivery_api.entity.Pedido;
 import com.deliverytech.delivery_api.enums.StatusPedido;
 
 @Repository
-public interface PedidoRepository extends JpaRepository <Pedido, Long> {
+public interface PedidoRepository extends JpaRepository<Pedido, Long> {
 
     // Buscar pedidos por cliente ID
     List<Pedido> findByClienteIdOrderByDataPedidoDesc(Long clienteId);
@@ -26,5 +26,8 @@ public interface PedidoRepository extends JpaRepository <Pedido, Long> {
 
     // Pedidos por período
     List<Pedido> findByDataPedidoBetween(LocalDateTime inicio, LocalDateTime fim);
+
+    // Pedidos por restaurante
+    List<Pedido> findByRestauranteId(Long restauranteId);
 
 }

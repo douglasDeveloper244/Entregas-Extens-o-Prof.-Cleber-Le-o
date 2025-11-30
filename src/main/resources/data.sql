@@ -13,6 +13,11 @@ INSERT INTO restaurantes (nome, categoria, endereco, telefone, taxa_entrega, ava
 -- Inserir produtos
 INSERT INTO produtos (nome, descricao, preco, categoria, disponivel, restaurante_id) VALUES
 -- Pizzaria Bella
+('Pizza Margherita', 'Molho de tomate, mussarela e manjericão', 35.90, 'Pizza', 1, 1),
+('Pizza Calabresa', 'Molho de tomate, mussarela e calabresa', 18.90, 'Pizza', 1, 1),
+-- Burger House
+('X-Burger', 'Pão, carne, queijo e salada', 18.90, 'Hamburguer', 1, 2),
+('Batata Frita', 'Porção de batata frita crocante', 12.90, 'Acompanhamento', 1, 2),
 -- Sushi Master
 ('Combo Sashimi', '15 peças de sashimi variado', 45.90, 'Sashimi', 1, 3),
 ('Hot Roll Salmão', '8 peças de hot roll de salmão', 32.90, 'Hot Roll', 1, 3),
@@ -29,17 +34,17 @@ INSERT INTO item_pedido (quantidade, preco_unitario, subtotal, pedido_id, produt
 (1, 35.90, 35.90, 1, 1), -- Pizza Margherita no pedido 1
 (1, 18.90, 18.90, 1, 2), -- Pizza Calabresa no pedido 1
 
-(1, 18.90, 18.90, 2, 4), -- X-Burger no pedido 2
-(1, 12.90, 12.90, 2, 6), -- Batata Frita no pedido 2
+(1, 18.90, 18.90, 2, 3), -- X-Burger no pedido 2
+(1, 12.90, 12.90, 2, 4), -- Batata Frita no pedido 2
 
-(1, 45.90, 45.90, 3, 7), -- Combo Sashimi no pedido 3
-(1, 32.90, 32.90, 3, 8), -- Hot Roll Salmão no pedido 3
-(1, 15.90, 15.90, 3, 9); -- Temaki Atum no pedido 3
+(1, 45.90, 45.90, 3, 5), -- Combo Sashimi no pedido 3
+(1, 32.90, 32.90, 3, 6), -- Hot Roll Salmão no pedido 3
+(1, 15.90, 15.90, 3, 7); -- Temaki Atum no pedido 3
 
 -- Inserir usuários
-INSERT INTO usuarios (id, nome, email, senha, role, ativo, data_criacao , restaurante_id) VALUES
-(1, 'Admin Sistema', 'admin@delivery.com', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iKXulpZR8J4OY6Nd4EMCFyZw4ufC', 'ADMIN', 1, '2025-07-31 00:00:00', NULL),
-(2, 'João Cliente', 'joao@email.com', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iKXulpZR8J4OY6Nd4EMCFyZw4ufC', 'CLIENTE', 1, '2025-07-31 00:00:00', NULL),
-(3, 'Maria Cliente', 'maria@email.com', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iKXulpZR8J4OY6Nd4EMCFyZw4ufC', 'CLIENTE', 1, '2025-07-31 00:00:00', NULL),
-(4, 'Pizza Palace', 'pizza@palace.com', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iKXulpZR8J4OY6Nd4EMCFyZw4ufC', 'RESTAURANTE', 1, '2025-07-31 00:00:00', 1),
-(5, 'Burger King', 'burger@king.com', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iKXulpZR8J4OY6Nd4EMCFyZw4ufC', 'RESTAURANTE', 1, '2025-07-31 00:00:00', 2);
+INSERT INTO usuario (id, nome, email, senha, role, ativo, data_criacao, restaurante_id) VALUES
+(1, 'Admin Sistema', 'admin@delivery.com', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iKXulpZR8J4OY6Nd4EMCFyZw4ufC', 'ADMIN', true, NOW(), null),
+(2, 'João Cliente', 'joao@email.com', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iKXulpZR8J4OY6Nd4EMCFyZw4ufC', 'CLIENTE', true, NOW(), null),
+(3, 'Pizza Palace', 'pizza@palace.com', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iKXulpZR8J4OY6Nd4EMCFyZw4ufC', 'RESTAURANTE', true, NOW(), 1),
+(4, 'Carlos Entregador', 'carlos@entrega.com', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iKXulpZR8J4OY6Nd4EMCFyZw4ufC', 'ENTREGADOR', true, NOW(), null);
+

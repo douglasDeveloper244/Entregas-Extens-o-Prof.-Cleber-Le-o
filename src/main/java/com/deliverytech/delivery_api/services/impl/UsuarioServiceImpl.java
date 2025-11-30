@@ -37,7 +37,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public UsuarioResponseDTO cadastrar(UsuarioRequestDTO dto) {
-        if(usuarioRepository.existsByEmail(dto.getEmail())){
+        if (usuarioRepository.existsByEmail(dto.getEmail())) {
             throw new BusinessException("Email já cadastrado: " + dto.getEmail());
         }
         Usuario usuario = Usuario.builder()
@@ -65,9 +65,15 @@ public class UsuarioServiceImpl implements UsuarioService {
         responseDTO.setUsuario(modelMapper.map(usuario, UsuarioResponseDTO.class));
         responseDTO.setTipo("Bearer");
         responseDTO.setExpiracao(86400000L); // 1 dia em segundos
-        responseDTO.setToken(jwtUtil.generateToken(User.withUsername(usuario.getEmail()).password(usuario.getSenha()).authorities("ROLE_" + usuario.getRole().name()).build(), usuario));
+        responseDTO.setToken(jwtUtil.generateToken(usuario));
 
         return responseDTO;
 
+    }
+
+    @Override
+    public UsuarioResponseDTO me() {
+        Usuario usuario = com.deliverytech.delivery_api.security.SecurityUtils.getCurrentUser();
+        return modelMapper.map(usuario, UsuarioResponseDTO.class);
     }
 }

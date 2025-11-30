@@ -2,10 +2,12 @@ package com.deliverytech.delivery_api.services.impl;
 
 import com.deliverytech.delivery_api.dto.request.RestauranteRequestDTO;
 import com.deliverytech.delivery_api.dto.response.RestauranteResponseDTO;
+import com.deliverytech.delivery_api.dto.response.ProdutoResponseDTO;
 import com.deliverytech.delivery_api.entity.Restaurante;
 import com.deliverytech.delivery_api.exception.BusinessException;
 import com.deliverytech.delivery_api.projection.RelatorioVendas;
 import com.deliverytech.delivery_api.repository.RestauranteRepository;
+import com.deliverytech.delivery_api.repository.ProdutoRepository;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +25,22 @@ public class RestauranteServiceImpl implements RestauranteService {
     private RestauranteRepository restauranteRepository;
 
     @Autowired
+    private ProdutoRepository produtoRepository;
+
+    @Autowired
     private ModelMapper modelMapper;
 
+    @Override
+    public List<ProdutoResponseDTO> listarProdutosPorRestaurante(Long restauranteId) {
+        if (!restauranteRepository.existsById(restauranteId)) {
+            throw new BusinessException("Restaurante não encontrado com ID: " + restauranteId);
+        }
+        List<com.deliverytech.delivery_api.entity.Produto> produtos = produtoRepository
+                .findByRestauranteId(restauranteId);
+        return produtos.stream()
+                .map(p -> modelMapper.map(p, ProdutoResponseDTO.class))
+                .toList();
+    }
 
     @Override
     public RestauranteResponseDTO cadastrar(RestauranteRequestDTO dto) {
@@ -90,8 +106,7 @@ public class RestauranteServiceImpl implements RestauranteService {
         Restaurante restaurante = restauranteRepository.findByNomeAndAtivoTrue(nome);
         if (!restaurante.getNome().equalsIgnoreCase(nome)) {
             throw new BusinessException("Restaurante não encontrado com nome: " + nome);
-        }
-        else if (!restaurante.getAtivo()) {
+        } else if (!restaurante.getAtivo()) {
             throw new BusinessException("Restaurante está desativado: " + nome);
         }
         // Converter entidade para DTO
@@ -116,7 +131,8 @@ public class RestauranteServiceImpl implements RestauranteService {
         // Buscar restaurantes por taxa de entrega dentro do intervalo
         List<Restaurante> restaurantes = restauranteRepository.findByTaxaEntregaBetween(precoMinimo, precoMaximo);
         if (restaurantes.isEmpty()) {
-            throw new BusinessException("Nenhum restaurante encontrado com taxa de entrega entre " + precoMinimo + " e " + precoMaximo);
+            throw new BusinessException(
+                    "Nenhum restaurante encontrado com taxa de entrega entre " + precoMinimo + " e " + precoMaximo);
         }
         // Converter lista de entidades para lista de DTOs
         return restaurantes.stream()
@@ -126,12 +142,9 @@ public class RestauranteServiceImpl implements RestauranteService {
 
     @Override
     public List<RestauranteResponseDTO> listarAtivos() {
-        // Buscar todos os restaurantes ativos
         List<Restaurante> restaurantesAtivos = restauranteRepository.findByAtivoTrue();
-        if (restaurantesAtivos.isEmpty()) {
-            throw new BusinessException("Nenhum restaurante ativo encontrado.");
-        }
-        // Converter lista de entidades para lista de DTOs
+
+        // Sempre retorna lista, mesmo vazia -> comportamento REST correto
         return restaurantesAtivos.stream()
                 .map(restaurante -> modelMapper.map(restaurante, RestauranteResponseDTO.class))
                 .toList();
@@ -168,13 +181,15 @@ public class RestauranteServiceImpl implements RestauranteService {
         // Buscar restaurantes por taxa de entrega
         List<Restaurante> restaurantes = restauranteRepository.findByTaxaEntregaLessThanEqual(taxaEntrega);
         if (restaurantes.isEmpty()) {
-            throw new BusinessException("Nenhum restaurante encontrado com taxa de entrega menor ou igual a: " + taxaEntrega);
+            throw new BusinessException(
+                    "Nenhum restaurante encontrado com taxa de entrega menor ou igual a: " + taxaEntrega);
         }
         // Converter lista de entidades para lista de DTOs
         return restaurantes.stream()
                 .map(restaurante -> modelMapper.map(restaurante, RestauranteResponseDTO.class))
                 .toList();
     }
+
     @Override
     public RestauranteResponseDTO inativarRestaurante(Long id) {
         // Buscar restaurante por ID
@@ -192,4 +207,16 @@ public class RestauranteServiceImpl implements RestauranteService {
         return modelMapper.map(restauranteInativado, RestauranteResponseDTO.class);
     }
 
+    @Override
+    public boolean isOwner(Long id) {
+        try {
+            if (!com.deliverytech.delivery_api.security.SecurityUtils.hasRole("RESTAURANTE")) {
+                return false;
+            }
+            Long currentRestauranteId = com.deliverytech.delivery_api.security.SecurityUtils.getCurrentRestauranteId();
+            return currentRestauranteId != null && currentRestauranteId.equals(id);
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }

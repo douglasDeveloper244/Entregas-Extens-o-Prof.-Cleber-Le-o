@@ -43,6 +43,7 @@ public class PedidoRequestDTO {
     @Schema(description = "Endereço de entrega do pedido", example = "Rua das Flores, 123")
     private String enderecoEntrega;
 
+    @Schema(description = "CEP de entrega", example = "12345-678", required = true)
     @NotBlank(message = "CEP é obrigatório")
     @ValidCEP
     private String cep;

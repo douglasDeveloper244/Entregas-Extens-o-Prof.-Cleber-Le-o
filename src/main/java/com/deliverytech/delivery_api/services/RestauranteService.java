@@ -1,7 +1,7 @@
 package com.deliverytech.delivery_api.services;
 
-
 import com.deliverytech.delivery_api.dto.request.RestauranteRequestDTO;
+import com.deliverytech.delivery_api.dto.response.ProdutoResponseDTO;
 import com.deliverytech.delivery_api.dto.response.RestauranteResponseDTO;
 import com.deliverytech.delivery_api.projection.RelatorioVendas;
 
@@ -33,4 +33,8 @@ public interface RestauranteService {
     List<RestauranteResponseDTO> buscarPorTaxaEntrega(BigDecimal taxaEntrega);
 
     RestauranteResponseDTO inativarRestaurante(Long id);
+
+    public List<ProdutoResponseDTO> listarProdutosPorRestaurante(Long restauranteId);
+
+    boolean isOwner(Long id);
 }

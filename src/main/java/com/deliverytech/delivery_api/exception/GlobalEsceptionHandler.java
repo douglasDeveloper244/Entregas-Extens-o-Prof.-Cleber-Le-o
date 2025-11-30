@@ -16,7 +16,7 @@ import java.util.Map;
 @ControllerAdvice
 public class GlobalEsceptionHandler {
 
-   @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponseDTO> handleValidationExceptions(
             MethodArgumentNotValidException ex, WebRequest request) {
 
@@ -28,11 +28,10 @@ public class GlobalEsceptionHandler {
         });
 
         ErrorResponseDTO errorResponse = new ErrorResponseDTO(
-            HttpStatus.BAD_REQUEST.value(),
-            "Dados inválidos",
-            "Erro de validação nos dados enviados",
-            request.getDescription(false).replace("uri=", "")
-        );
+                HttpStatus.BAD_REQUEST.value(),
+                "Dados inválidos",
+                "Erro de validação nos dados enviados",
+                request.getDescription(false).replace("uri=", ""));
         errorResponse.setErrorCode("VALIDATION_ERROR");
         errorResponse.setDetails(errors);
 
@@ -44,11 +43,10 @@ public class GlobalEsceptionHandler {
             EntityNotFoundException ex, WebRequest request) {
 
         ErrorResponseDTO errorResponse = new ErrorResponseDTO(
-            HttpStatus.NOT_FOUND.value(),
-            "Entidade não encontrada",
-            ex.getMessage(),
-            request.getDescription(false).replace("uri=", "")
-        );
+                HttpStatus.NOT_FOUND.value(),
+                "Entidade não encontrada",
+                ex.getMessage(),
+                request.getDescription(false).replace("uri=", ""));
         errorResponse.setErrorCode(ex.getErrorCode());
 
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
@@ -64,15 +62,28 @@ public class GlobalEsceptionHandler {
         }
 
         ErrorResponseDTO errorResponse = new ErrorResponseDTO(
-            HttpStatus.CONFLICT.value(),
-            "Conflito de dados",
-            ex.getMessage(),
-            request.getDescription(false).replace("uri=", "")
-        );
+                HttpStatus.CONFLICT.value(),
+                "Conflito de dados",
+                ex.getMessage(),
+                request.getDescription(false).replace("uri=", ""));
         errorResponse.setErrorCode(ex.getErrorCode());
         errorResponse.setDetails(details.isEmpty() ? null : details);
 
         return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(org.springframework.web.HttpRequestMethodNotSupportedException.class)
+    public ResponseEntity<ErrorResponseDTO> handleHttpRequestMethodNotSupported(
+            org.springframework.web.HttpRequestMethodNotSupportedException ex, WebRequest request) {
+
+        ErrorResponseDTO errorResponse = new ErrorResponseDTO(
+                HttpStatus.METHOD_NOT_ALLOWED.value(),
+                "Método não permitido",
+                ex.getMessage(),
+                request.getDescription(false).replace("uri=", ""));
+        errorResponse.setErrorCode("METHOD_NOT_ALLOWED");
+
+        return new ResponseEntity<>(errorResponse, HttpStatus.METHOD_NOT_ALLOWED);
     }
 
     @ExceptionHandler(Exception.class)
@@ -80,11 +91,10 @@ public class GlobalEsceptionHandler {
             Exception ex, WebRequest request) {
 
         ErrorResponseDTO errorResponse = new ErrorResponseDTO(
-            HttpStatus.INTERNAL_SERVER_ERROR.value(),
-            "Erro interno do servidor",
-            "Ocorreu um erro inesperado. Tente novamente mais tarde.",
-            request.getDescription(false).replace("uri=", "")
-        );
+                HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                "Erro interno do servidor",
+                "Ocorreu um erro inesperado. Tente novamente mais tarde.",
+                request.getDescription(false).replace("uri=", ""));
         errorResponse.setErrorCode("INTERNAL_ERROR");
 
         return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);

@@ -33,6 +33,7 @@ public class ProdutoServiceImpl implements ProdutoService {
     public ProdutoResponseDTO cadastrar(ProdutoRequestDTO dto) {
         // Converter DTO para entidade
         Produto produto = modelMapper.map(dto, Produto.class);
+        produto.setId(null); // Ensure ID is null for new entity
         produto.setRestaurante(restauranteRepository.findById(dto.getRestauranteId()).get());
         // Salvar cliente
         Produto produtoSalvo = produtoRepository.save(produto);
@@ -98,8 +99,8 @@ public class ProdutoServiceImpl implements ProdutoService {
     public ProdutoResponseDTO buscarPorNome(String nome) {
         // Buscar produto por nome
         Produto produto = produtoRepository.findByNome(nome);
-        if(!produto.getDisponivel()){
-            throw new BusinessException ("Produto indisponível: " + nome);
+        if (!produto.getDisponivel()) {
+            throw new BusinessException("Produto indisponível: " + nome);
         }
         // Converter entidade para DTO
         return modelMapper.map(produto, ProdutoResponseDTO.class);
@@ -137,7 +138,8 @@ public class ProdutoServiceImpl implements ProdutoService {
         // Buscar produtos por faixa de preço
         List<Produto> produtos = produtoRepository.findByPrecoLessThanEqual(precoMaximo);
         if (produtos.isEmpty()) {
-            throw new BusinessException("Nenhum produto encontrado na faixa de preço: " + precoMinimo + " a " + precoMaximo);
+            throw new BusinessException(
+                    "Nenhum produto encontrado na faixa de preço: " + precoMinimo + " a " + precoMaximo);
         }
         // Converter lista de entidades para lista de DTOs
         return produtos.stream()
@@ -158,7 +160,8 @@ public class ProdutoServiceImpl implements ProdutoService {
                 .map(produto -> modelMapper.map(produto, ProdutoResponseDTO.class))
                 .toList();
     }
-    //buscar produtos com preço menor ou igual a um valor específico
+
+    // buscar produtos com preço menor ou igual a um valor específico
     @Override
     public List<ProdutoResponseDTO> buscarPorPrecoMenorOuIgual(BigDecimal valor) {
         // Buscar produtos com preço menor ou igual ao valor especificado
@@ -170,5 +173,23 @@ public class ProdutoServiceImpl implements ProdutoService {
         return produtos.stream()
                 .map(produto -> modelMapper.map(produto, ProdutoResponseDTO.class))
                 .toList();
+    }
+
+    @Override
+    public boolean isOwner(Long produtoId) {
+        Produto produto = produtoRepository.findById(produtoId)
+                .orElseThrow(() -> new IllegalArgumentException("Produto não encontrado: " + produtoId));
+
+        Long currentRestauranteId = com.deliverytech.delivery_api.security.SecurityUtils.getCurrentRestauranteId();
+
+        return produto.getRestaurante().getId().equals(currentRestauranteId);
+    }
+
+    @Override
+    public void deletar(Long id) {
+        if (!produtoRepository.existsById(id)) {
+            throw new IllegalArgumentException("Produto não encontrado: " + id);
+        }
+        produtoRepository.deleteById(id);
     }
 }
