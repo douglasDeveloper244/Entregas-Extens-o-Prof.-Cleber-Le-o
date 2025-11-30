@@ -51,8 +51,7 @@ Git
 
 1. Clone o repositório
    bash
-   git clone https://github.com/seu-usuario/delivery-api.git
-   cd delivery-api
+   git clone https://github.com/douglasDeveloper244/Entregas-Extens-o-Prof.-Cleber-Le-o
 2. Compile o projeto
    bash
    mvn clean compile
